@@ -1,71 +1,334 @@
-![](https://img.shields.io/badge/Foundry-v0.8.6-informational)
-<!--- Downloads @ Latest Badge -->
-<!--- replace <user>/<repo> with your username/repository -->
-<!--- ![Latest Release Download Count](https://img.shields.io/github/downloads/<user>/<repo>/latest/module.zip) -->
+# jsColor for Foundry VTT
 
-<!--- Forge Bazaar Install % Badge -->
-<!--- replace <your-module-name> with the `name` in your manifest -->
-<!--- ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2F<your-module-name>&colorB=4aa94a) -->
+This is a fork of [jscolor](https://github.com/EastDesire/jscolor) for use as a library for Foundry VTT modules. For further info about features and licensing, see the [jscolor website](https://jscolor.com).
 
+**jsColor for Foundry VTT** is a customisable color picker with a built-in opacity (alpha) slider.
 
-# How to use this Template to create a versioned Release
+![Color Picker](./images/color-picker-example.png)
 
-1. Open your repository's releases page.
+# How to Use
+## Register a Module Setting
+As with FoundryVTT's [ClientSettings.register](https://foundryvtt.com/api/ClientSettings.html#register) function, use the `JsColor.register(module, key, {settingOptions}, {pickerOptions})` function to register a new color picker setting for a module. `module` is the ID of the module, `key` is the name of the setting, `{settingOptions}` is a comma-separated list of options related to the `ClientSettings.register` function (see Setting Options) and `{pickerOptions}` is a comma-separated list of options for the picker (see Picker Options).
 
-![Where to click to open repository releases.](https://user-images.githubusercontent.com/7644614/93409301-9fd25080-f864-11ea-9e0c-bdd09e4418e4.png)
+## Setting Options
+### **name**
+The name of the setting for end users.
 
-2. Click "Draft a new release"
+Example: `name: 'Background Color'`
 
-![Draft a new release button.](https://user-images.githubusercontent.com/7644614/93409364-c1333c80-f864-11ea-89f1-abfcb18a8d9f.png)
+### **hint**
+The description of the registered setting and its behavior.
 
-3. Fill out the release version as the tag name.
+Example: `hint: 'Set the background color'`
 
-If you want to add details at this stage you can, or you can always come back later and edit them.
+### **default**
+The default color value, e.g., `'#FF0000FF'` for opaque red. If unset, the default is `'#FFFFFFFF'`.
 
-![Release Creation Form](https://user-images.githubusercontent.com/7644614/93409543-225b1000-f865-11ea-9a19-f1906a724421.png)
+Example: `default: '#FF0000FF'`
 
-4. Hit submit.
+### **scope**
+The scope of the setting: 
+- **'client':** The setting affects only the client.
+- **'world':** The setting affects all clients.
 
-5. Wait a few minutes.
+Example: `scope: 'world'`
 
-A Github Action will run to populate the `module.json` and `module.zip` with the correct urls that you can then use to distribute this release. You can check on its status in the "Actions" tab.
+### **config**
+Whether to display the setting in the configuration view. If set to `false`, the color picker will not be available. Default is `true`.
 
-![Actions Tab](https://user-images.githubusercontent.com/7644614/93409820-c1800780-f865-11ea-8c6b-c3792e35e0c8.png)
+Example: `config: false`
 
-6. Grab the module.json url from the release's details page.
+## Module Setting Examples
+````
+JsColor.register(
+  'my-module',
+  'background-color', 
+  {
+    name: 'Background Color',
+    hint: 'Set the background color'
+    scope: 'world',
+    config: true
+  },
+  {
+    format: 'hexa',
+    alphaChannel: true
+  }
+)
+````
+## Add an Input
+1. Add the following html to your template file: 
+   ````
+   <input type="text" data-jscolor="{pickerOptions}" value="">
+   ````
+   - *`pickerOptions` is a list of comma-separated options in the format: `option: value`. See "Picker Options" for a list of options*
+   - *`type` does not need to be defined, but Foundry VTT will automatically format the element if it is included.*
+2. Add `JsColor.install()` to your script after the template is rendered.
 
-![image](https://user-images.githubusercontent.com/7644614/93409960-10c63800-f866-11ea-83f6-270cc5d10b71.png)
+# Picker Options
+### **alpha**
+The initial alpha (opacity) value.
 
-This `module.json` will only ever point at this release's `module.zip`, making it useful for sharing a specific version for compatibility purposes.
+Example: `alpha: 0.5`
 
-7. You can use the url `https://github.com/<user>/<repo>/releases/latest/download/module.json` to refer to the manifest.
+### **alphaChannel**
+Whether the alpha (opacity) channel is enabled and the alpha slider is visible. The default is `auto`.
 
-This is the url you want to use to install the module typically, as it will get updated automatically.
+- **'auto':** The alpha channel is enabled if the current format supports it.
+- **true:** The alpha channel is enabled.
+- **false:** The alpha channel is disabled.
 
-# How to List Your Releases on Package Admin
+Example: `alphaChannel: true`
 
-To request a package listing for your first release, go to the [Package Submission Form](https://foundryvtt.com/packages/submit) (accessible via a link at the bottom of the "[Systems and Modules](https://foundryvtt.com/packages/)" page on the Foundry website).
+### **alphaElement**
+The DOM element that will be used to edit and display the alpha value (opacity).
 
-Fill in the form. "Package Name" must match the name in the module manifest.  Package Title will be the display name for the package.  Package URL should be your repo URL.
-![image](https://user-images.githubusercontent.com/36359784/120664263-b49e5500-c482-11eb-9126-af7006389903.png)
+### **backgroundColor**
+The background color of the color picker (in CSS color notation). Default is `'rgba(255, 255, 255, 1)'`.
 
+Example: `backgroundColor: 'rgba(218, 216, 204, 1`
 
-One of the Foundry staff will typically get back to you with an approval or any further questions within a few days, and give you access to the package admin pages.
+### **borderColor**
+The border color of the color picker (in CSS color notation). Default is `'rgba(187, 187, 187 ,1)'`.
 
-Once you have access to the [module admin page](https://foundryvtt.com/admin/packages/package/), you can release a new version by going into the page for your module, scrolling to the bottom, and filling in a new Package Version.
+Example: `borderColor: 'rgba(122, 121, 113, 1)'`
 
-When listing a new version, Version should be the version number you set above, and the Manifest URL should be the manifest __for that specific version__ (do not use /latest/ here).
-![image](https://user-images.githubusercontent.com/36359784/120664346-c4b63480-c482-11eb-9d8b-731b50d70939.png)
+### **borderRadius**
+The border radius of the color picker (in pixels). Default is `5`.
 
-> ### :warning: Important :warning:
-> 
-> It is very important that you use the specific release manifest url, and not the `/latest` url here. For more details about why this is important and how Foundry Installs/Updates packages, read [this wiki article](https://foundryvtt.wiki/en/development/guides/releases-and-history).
+Example: `borderRadius: 10`
 
-Clicking "Save" in the bottom right will save the new version, which means that anyone installing your module from within Foundry will get that version, and a post will be generated in the #release-announcements channel on the official Foundry VTT Discord.
+### **borderWidth**
+The border width of the color pickeer (in pixels). Default is `1`.
 
+Example: `borderWidth: 2`
 
-# FoundryVTT Module
+### **buttonColor**
+The text and border color of the Close button (in CSS notation). Default is `'rgba(0, 0, 0, 1)'`
 
-Does something, probably
+Example: `buttonColor: 'rgba(0, 0, 0, 1)'`
 
-## Changelog
+### **buttonHeight**
+The height of the Close button (in pixels). Default is `18`.
+
+Example: `buttonHeight: 25`
+
+### **closeButton**
+Whether the Close button is displayed. Default is `false`.
+
+Example: `closeButton: true`
+
+### **closeText**
+The text of the Close button. Default is `Close`.
+
+Example: `closeText: 'Exit'`
+
+### **controlBorderColor**
+The border color of the color picker's controls (in CSS color notation). Default is `'rgba(187, 187, 187, 1)'`.
+
+Example: `controlBorderColor: 'rgba(122, 121, 113, 1)'`
+
+### **controlBorderWidth**
+The border width of the color picker's controls (in pixels). Default is `1`.
+
+Example: `controlBorderWidth: 2`
+
+### **crossSize**
+The size of the crosshair cursor (in pixels). Default is `8`.
+
+### **forceStyle**
+Whether to overwrite the CSS style of the previewElement using the !important flag. Default is `true`.
+
+Example: `forceStyle: false`
+
+### **format**
+The format of the displayed color value.
+- **'auto':** Base the format on the initial color value.
+- **'any':** Any supported format.
+- **'hex':** Hex color: #RRGGBB
+- **'hexa':** Hex color with alpha channel: #RRGGBBAA
+- **'rgb':** RGB color: rgb(R, G, B)
+- **'rgba':** RGB color with alpha channel: rgba(R, G, B, A)
+
+Example: `format: 'hexa'`
+
+### **hash**
+Whether the valueElement should be prefixed with #. Default is `true`
+
+Example: `hash: false`
+
+### **height**
+The height of the color spectrum area (in pixels). Default is `101`.
+
+Example: `height: 200`
+
+### **hideOnLeave**
+Whether to hide the color picker when clicking away from the target element. Default is `true`.
+
+Example: `hideOnleave: false`
+
+### **hideOnPaletteClick**
+Whether to hide the color picker when clicking the palette. Default is `false`.
+
+Example: `hideOnPaletteClick: true`
+
+### **mode**
+The layout of the color picker controls. Default is `HSV`.
+- **'HSV':** Hue and saturation are controlled with a 2D gradient and value (brightness) is controlled with a slider.
+- **'HVS':** Huse and value (brightness) are controlled with a 2D gradient and saturation is controlled with a slider.
+- **'HS':** Hude and saturation are conrolled with a 2D gradient and value (brightness) is not controlled.
+- **'HV':** Hude and value are conrolled with a 2D gradient and value saturation is not controlled.
+
+Example: `mode: 'HVS'`
+
+### **onChange**
+A callback function called when the color is changed.
+
+### **onInput**
+A callback function called repeatedly as the color is changed.
+
+### **padding**
+The padding of the color picker (in pixels). Default is `12`
+
+Example: `padding: 5`
+
+### **palette**
+The colors to be displayed in the palette (in array or space-separated string notation).
+
+Array notation example: `palette: ['#ffe438', '#88dd20', 'rgba(0,154,255,0.6)', 'rgba(187,0,255,0.3)']`
+String notation example: `palette: '#ffe438 #88dd20 rgba(0,154,255,0.6) rgba(187,0,255,0.3)'`
+
+### **paletteCols**
+The number of columns in the palette. Default is `10`.
+
+Example: `paletteCols: 5`
+
+### **paletteHeight**
+The maximum height of a row in the palette (in pixels). Default is `16`.
+
+Example: `paletteHeight: 10`
+
+### **paletteSetsAlpha**
+Whether the palette colors will set alpha. Default is `auto`.
+- **'auto':** Palette colors will set alpha if the palette contains at least one color with alpha.
+- **true:** Palette colors will set alpha.
+- **false:** Palette color will not set alpha.
+
+Example: `paletteSetsAlpha: true`
+
+### **paletteSpacing**
+The distance between color samples in the palette. Default is `4`.
+
+Example: `paletteSpacing: 2`
+
+### **pointerBorderColor**
+The border color of the pointers inside the color picker's controls (in CSS color notation). Default is `'rgba(255, 255, 255, 1)'`
+
+Example: `pointerBorderColor: 'rgba(0, 14, 238, 1)'`
+### **pointerBorderWidth**
+The border width of the pointers inside the color picker's controls. Default is `1`.
+
+Example: `pointerBorderColor: 2`
+
+### **pointerColor**
+The color of the pointers iside the color picker's controls (in CCS color notation). Default is `'rgba(76,76,76,1)'`.
+
+### **pointerThickness**
+The thickness of the pointers inside the color picker's controls (in pixels). Default is `2`
+
+Example: `pointerThickness: 1`
+
+### **position**
+The position of the color pickeer relative to the target element. Default is: `'bottom'`.
+
+Available values:
+- 'left'
+- 'right'
+- 'top'
+- 'bottom'
+
+Example: `position: 'right'`
+
+### **previewElement**
+The DOM element that will contain a preview of the picked color using CSS background image. Default is `targetElement`.
+
+### **previewPadding**
+The space between the color preview image and content of the `previewElement` (in pixels). Default is `8`.
+
+Example: `previewPadding: 20`
+
+### **previewPosition**
+The position of the color preview image in the `previewElement`. Default is `'left'`.
+
+Available values:
+- 'left'
+- 'right'
+
+Example: `previewPosition: 'right'`
+
+### **previewSize**
+The width of the color preview image in the `previewElement` (in pixels). Default is `32`
+
+Example: `previewSize: 50`
+
+### **random**
+Whether to generate a random initial color. Default is `false`.
+
+Example: `random: false`
+
+### **required**
+Whether the `valueElement` must always contain a color value. Default is `true`.
+
+Example: `required: false`
+
+### **shadow**
+Whether to display a shadow behind the color picker. Default is `true`.
+
+Example: `shadow: false`
+
+### **shadowBlur**
+The blur radius of the color picker's shadow (in pixels). Default is `15`.
+
+Example: `shadowBlur: 5`
+
+### **shadowColor**
+The color of the color picker's shadow (in CSS color notation). Default is `'rgba(0,0,0,0.2)'`.
+
+Example: `shadowColor: 'rgba(255, 0, 0 , 1)'`
+
+### **showOnClick**
+Whether to display the color picker on clicking the target element. Default is `true`.
+
+Example: `showOnClick: false`
+
+### **sliderSize**
+The width of the sliders (in pixels). Default is `16`.
+
+Example: `sliderSize: 10`
+
+### **smartPosition**
+Whether to automatically move the position of the color picker when there is not enough space for it at the specified `position`. Default is `true`.
+
+Example: `smartPosition: false`
+
+### **uppercase**
+Whether to display the hex color code in uppercase. Default is `true`.
+
+Example: `uppercase: false`
+
+### **value**
+The initial color value in any support formatted. If not set, the **value** attribute of the `valueElement` will be used.
+
+Example: `value: '#ffffffff'`
+
+### **valueElement**
+The DOM element that will contain the color code. Default is the target element.
+
+### **width**
+The width of the color spectrum area (in pixels). Default is `181`.
+
+Example: `width: 200`
+
+### **zIndex**
+The z-index of the color picker box. Default is `5000`.
+
+Example: `zIndex: 1`
