@@ -2,7 +2,7 @@
   "name": "jscolor",
   "title": "jscolor for Foundry VTT",
   "description": "A web color picker with opacity (alpha)",
-  "version": "0.8",
+  "version": "0.1",
   "library": "true",
   "manifestPlusVersion": "1.0.0",
   "minimumCoreVersion": "9",

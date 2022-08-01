@@ -5,6 +5,7 @@ Hooks.once('init', function () {
     register,
     install: JsColor.install
   }
+  Hooks.callAll("jscolor.ready", window.JsColor)
 })
 
 function register (module, key, settingOptions, pickerOptions) {

@@ -2009,6 +2009,7 @@ const JsColor = (function () { // BEGIN jscolor
           }
 
           this.setPreviewElementBg(this.toRGBAString())
+          this.setTextIndent()
         }
 
         if (isPickerOwner()) {
@@ -2115,6 +2116,12 @@ const JsColor = (function () { // BEGIN jscolor
         }
         jsc.setStyle(this.previewElement, sty, this.forceStyle, true)
         */
+      }
+
+      this.setTextIndent = function () {
+        if (this.previewElement !== this.valueElement) return
+        const sty = { 'text-indent': this.previewSize + 'px' }
+        jsc.setStyle(this.targetElement, sty, this.forceStyle)
       }
 
       this.setValueElementValue = function (str) {
