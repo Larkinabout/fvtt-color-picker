@@ -1,14 +1,18 @@
-# jsColor for Foundry VTT
+# Color Picker for Foundry VTT
 
-This is a fork of [jscolor](https://github.com/EastDesire/jscolor) for use as a library for Foundry VTT modules. For further info about features and licensing, see the [jscolor website](https://jscolor.com).
-
-**jsColor for Foundry VTT** is a customisable color picker with a built-in opacity (alpha) slider.
+A customisable color picker with a built-in opacity (alpha) slider for use as a library in Foundry VTT.
 
 ![Color Picker](./images/color-picker-example.png)
 
+# Licence
+
+This module uses a modified version of the [jscolor](https://github.com/EastDesire/jscolor) Color Picker by Jan Odvárko (East Desire) under the terms of the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html) licence.
+
+For info about **jscolor** Color Picker, see the [jscolor website](https://jscolor.com).
+
 # How to Use
 ## Register a Module Setting
-As with FoundryVTT's [ClientSettings.register](https://foundryvtt.com/api/ClientSettings.html#register) function, use the `JsColor.register(module, key, {settingOptions}, {pickerOptions})` function to register a new color picker setting for a module. `module` is the ID of the module, `key` is the name of the setting, `{settingOptions}` is a comma-separated list of options related to the `ClientSettings.register` function (see Setting Options) and `{pickerOptions}` is a comma-separated list of options for the picker (see Picker Options).
+As with FoundryVTT's [ClientSettings.register](https://foundryvtt.com/api/ClientSettings.html#register) function, use the `ColorPicker.register(module, key, {settingOptions}, {pickerOptions})` function to register a new color picker setting for a module. `module` is the ID of the module, `key` is the name of the setting, `{settingOptions}` is a comma-separated list of options related to the `ClientSettings.register` function (see Setting Options) and `{pickerOptions}` is a comma-separated list of options for the picker (see Picker Options).
 
 ## Setting Options
 ### **name**
@@ -40,7 +44,7 @@ Example: `config: false`
 
 ## Module Setting Examples
 ````
-JsColor.register(
+ColorPicker.register(
   'my-module',
   'background-color', 
   {
@@ -58,11 +62,11 @@ JsColor.register(
 ## Add an Input
 1. Add the following html to your template file: 
    ````
-   <input type="text" data-jscolor="{pickerOptions}" value="">
+   <input type="text" data-color-picker="{pickerOptions}" value="">
    ````
    - *`pickerOptions` is a list of comma-separated options in the format: `option: value`. See "Picker Options" for a list of options*
    - *`type` does not need to be defined, but Foundry VTT will automatically format the element if it is included.*
-2. Add `JsColor.install()` to your script after the template is rendered.
+2. Add `ColorPicker.install()` to your script after the template is rendered.
 
 # Picker Options
 ### **alpha**

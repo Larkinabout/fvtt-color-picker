@@ -1,8 +1,8 @@
 {
-  "name": "jscolor",
-  "title": "jscolor for Foundry VTT",
-  "description": "A web color picker with opacity (alpha)",
-  "version": "0.1",
+  "name": "color-picker",
+  "title": "Color Picker",
+  "description": "A customisable color picker with a built-in opacity (alpha) slider for use as a library in Foundry VTT.",
+  "version": "0.2",
   "library": "true",
   "manifestPlusVersion": "1.0.0",
   "minimumCoreVersion": "9",
@@ -19,7 +19,7 @@
   "conflicts": [
   ],
   "esmodules": [
-    "./scripts/main.js"
+    "./scripts/color-picker.js"
   ],
   "scripts": [
   ],
@@ -32,8 +32,8 @@
       "path": "languages/en.json"
     }
   ],
-  "url": "https://github.com/Larkinabout/fvtt-jscolor",
-  "manifest": "https://github.com/Larkinabout/fvtt-jscolor/releases/latest/download/module.json",
-  "download": "https://github.com/Larkinabout/fvtt-jscolor/releases/latest/download/module.zip",
-  "readme": "https://github.com/Larkinabout/fvtt-jscolor#readme"
+  "url": "https://github.com/Larkinabout/fvtt-color-picker",
+  "manifest": "https://github.com/Larkinabout/fvtt-color-picker/releases/latest/download/module.json",
+  "download": "https://github.com/Larkinabout/fvtt-color-picker/releases/latest/download/module.zip",
+  "readme": "https://github.com/Larkinabout/fvtt-color-picker#readme"
 }

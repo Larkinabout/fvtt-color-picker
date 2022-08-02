@@ -8,6 +8,9 @@
  * @version 2.4.8
  *
  * See usage examples at http://jscolor.com/examples/
+ *
+ * Modified on 2022-08-02 by Russell Larkin (Larkinabout)
+ *
  */
 
 const JsColor = (function () { // BEGIN jscolor
@@ -48,7 +51,7 @@ const JsColor = (function () { // BEGIN jscolor
         let dataOpts, m
 
         if (
-          (dataOpts = jsc.getDataAttr(elms[i], 'jscolor')) !== null ||
+          (dataOpts = jsc.getDataAttr(elms[i], 'color-picker')) !== null ||
                 (elms[i].className && (m = elms[i].className.match(matchClass))) // installation using className (DEPRECATED)
         ) {
           const targetElm = elms[i]
@@ -3184,7 +3187,7 @@ const JsColor = (function () { // BEGIN jscolor
     let success = true
 
     try {
-      jsc.installBySelector('[data-jscolor]', rootNode)
+      jsc.installBySelector('[data-color-picker]', rootNode)
     } catch (e) {
       success = false
       console.warn(e)

@@ -1,11 +1,11 @@
 import JsColor from './lib/jscolor.js'
 
 Hooks.once('init', function () {
-  window.JsColor = {
+  window.ColorPicker = {
     register,
     install: JsColor.install
   }
-  Hooks.callAll("jscolor.ready", window.JsColor)
+  Hooks.callAll('colorPickerReady', window.ColorPicker)
 })
 
 function register (module, key, settingOptions, pickerOptions) {
@@ -75,11 +75,11 @@ class Setting {
       const element = event.element[0].querySelector(`[name='${this.module}.${this.key}']`)
       if (!element) return
       // Replace placeholder element
-      const newElement = $(element).replaceWith(`<input type="text" id="jscolor-${this.module}-${this.key}" name="${this.module}.${this.key}" value="${this.currentColor}">`)
+      const newElement = $(element).replaceWith(`<input type="text" id="color-picker-${this.module}-${this.key}" name="${this.module}.${this.key}" value="${this.currentColor}">`)
       if (!newElement) return
       // Attach jscolor to element
       this.pickerOptions.value = this.currentColor
-      this.jsColor = new JsColor(`#jscolor-${this.module}-${this.key}`, this.pickerOptions)
+      this.jsColor = new JsColor(`#color-picker-${this.module}-${this.key}`, this.pickerOptions)
 
       // Set colors when 'Save Changes' button is pressed
       $(event.element[0].querySelector('.sheet-footer button[name=submit]')).on('click', () => {
