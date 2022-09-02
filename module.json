@@ -1,12 +1,14 @@
 {
-  "name": "color-picker",
+  "id": "color-picker",
   "title": "Color Picker",
   "description": "A customisable color picker with a built-in opacity (alpha) slider for use as a library in Foundry VTT.",
-  "version": "0.2",
+  "version": "0.0",
   "library": "true",
-  "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "9",
-  "compatibleCoreVersion": "9",
+  "manifestPlusVersion": "1.2.0",
+  "compatibility": {
+    "minimum": 10,
+    "verified": 10
+  },
   "authors": [
     {
       "name": "Larkinabout",
@@ -14,10 +16,10 @@
     }
   ],
   "socket": true,
-  "dependencies": [
-  ],
-  "conflicts": [
-  ],
+  "relationships": {
+    "systems": [],
+    "requires": []
+  },
   "esmodules": [
     "./scripts/color-picker.js"
   ],
