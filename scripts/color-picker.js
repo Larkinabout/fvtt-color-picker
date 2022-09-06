@@ -82,13 +82,13 @@ class Setting {
       this.jsColor = new JsColor(`#color-picker-${this.module}-${this.key}`, this.pickerOptions)
 
       // Set colors when 'Save Changes' button is pressed
-      $(event.element[0].querySelector('.sheet-footer button[name=submit]')).on('click', () => {
+      $(event.element[0].querySelector("form.categories footer button[type=submit]")).on('click', () => {
         this.currentColor = this.jsColor.toString()
         game.settings.set(this.module, this.key, this.currentColor)
       })
 
       // Reset colors to defaults when 'Reset Defaults' button is pressed
-      $(event.element[0].querySelector('.sheet-footer button[name=reset]')).on('click', () => {
+      $(event.element[0].querySelector("aside.sidebar button.reset-all")).on('click', () => {
         this.currentColor = this.settingOptions.default ?? '#FFFFFFFF'
         this.jsColor.fromString(this.currentColor)
         game.settings.set(this.module, this.key, this.currentColor)
