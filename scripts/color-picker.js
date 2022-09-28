@@ -71,6 +71,9 @@ class Setting {
       pickerOptions: this.pickerOptions
     })
 
+    // Retrieve stored value
+    this.currentColor = (game.settings.settings.get(`${module}.${key}`)) ? game.settings.get(module, key) : this.currentColor
+
     Hooks.on('renderSettingsConfig', (event) => {
       const element = event.element[0].querySelector(`[name='${this.module}.${this.key}']`)
       if (!element) return
