@@ -2,7 +2,7 @@
 
 A customisable color picker with a built-in opacity (alpha) slider for use as a library in Foundry VTT.
 
-![Color Picker](./images/color-picker-example.png)
+![Color Picker](./images/color-picker.gif)
 
 # Licence
 
