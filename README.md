@@ -33,7 +33,7 @@ To use the color picker in any hbs template file (the most common use case being
 
 # The Old Way
 > [!CAUTION]
-> It's highly recommended to use the ColorPickerField directly as described above. The old method remains functional for the time being but mostly as a way to keep existing modules working. THis is also currently the only way to do extra customization on the appearance of the picker itself. This may be deprecated in the future.
+> It's recommended to use the ColorPickerField directly as described above. The old method remains functional for the time being but mostly as a way to keep existing modules working. THis is also currently the only way to do extra customization on the appearance of the picker itself. This may be deprecated in the future.
 
 ## Register a Module Setting
 As with FoundryVTT's [ClientSettings.register](https://foundryvtt.com/api/ClientSettings.html#register) function, use the `ColorPicker.register(module, key, {settingOptions}, {pickerOptions})` function to register a new color picker setting for a module. `module` is the ID of the module, `key` is the name of the setting, `{settingOptions}` is a comma-separated list of options related to the `ClientSettings.register` function (see Setting Options) and `{pickerOptions}` is a comma-separated list of options for the picker (see Picker Options).
