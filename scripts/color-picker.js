@@ -1,10 +1,15 @@
 import JsColor from './lib/jscolor.js'
+import { ColorPickerField } from './color-picker-field.js';
+import { HTMLAlphaColorPickerElement } from './alpha-color-picker-element.js';
 
 Hooks.once('init', function () {
   window.ColorPicker = {
     register,
     install: JsColor.install
   }
+  window.customElements.define(HTMLAlphaColorPickerElement.tagName, HTMLAlphaColorPickerElement);
+  game.colorPicker = {};
+  game.colorPicker.ColorPickerField = ColorPickerField;
   Hooks.callAll('colorPickerReady', window.ColorPicker)
 })
 
