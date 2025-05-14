@@ -59,7 +59,7 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
       value: this._value
     }
 
-    //This both modifies the element and added event handlers
+    //This both modifies the element and adds event handlers
     new JsColor(this.#colorString, this.pickerOptions);
 
     //JsColor will update the HTML input but we still need to handle the change so we can update our value
