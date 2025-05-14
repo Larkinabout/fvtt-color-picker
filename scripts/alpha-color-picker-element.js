@@ -13,9 +13,10 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
   /**
    * @param {HTMLColorPickerOptions} [options]
    */
-  constructor({ value }={}) {
+  constructor({ value, format }={}) {
     super();
     this._setValue(value || this.getAttribute("value")); // Initialize existing color value
+    this._format = format || this.getAttribute("format");
   }
 
   /** @override */
@@ -54,8 +55,7 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
   /** @override */
   _activateListeners() {
     this.pickerOptions = {
-      alpha: true,
-      format: "hexa",
+      format: this._format ?? "hexa",
       value: this._value
     }
 
@@ -93,10 +93,10 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
    * @returns {HTMLAlphaColorPickerElement}
    */
   static create(config) {
-    const { value } = config;
-    const picker = new this({ value });
+    const picker = new this(config);
     picker.name = config.name;
     picker.setAttribute("value", config.value ?? "");
+    picker.setAttribute("format", config.format ?? "");
     foundry.applications.fields.setInputAttributes(picker, config);
     return picker;
   }
