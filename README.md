@@ -161,7 +161,6 @@ Whether to overwrite the CSS style of the previewElement using the !important fl
 
 Example: `forceStyle: false`
 
-<a name="format"></a>
 ### **format**
 The format of the displayed color value.
 - **'auto':** Base the format on the initial color value.
