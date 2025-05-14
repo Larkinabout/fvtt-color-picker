@@ -25,6 +25,7 @@ game.settings.register("your-module", "your-setting-key", {
 });
 ```
 You can optionally provide the [format](#format) you wish to use like so (the default is "hexa"):
+
 ```type: new game.colorPicker.ColorPickerField({ format: "hex" })```
 
 ## In a Handlebars Template
