@@ -31,10 +31,9 @@ You can optionally provide the [format](#format) you wish to use like so (the de
 ## In a Handlebars Template
 To use the color picker in any hbs template file (the most common use case being a settings menu), provide the type through the data context with `new game.colorPicker.ColorPickerField()` as above. Then just use either the formInput or formGroup helper. You can learn more about those helpers on the [community wiki](https://foundryvtt.wiki/en/development/api/helpers).
 
-
 # The Old Way
 > [!CAUTION]
-> It's recommended to use the ColorPickerField directly as described above. The old method remains functional for the time being but mostly as a way to keep existing modules working. THis is also currently the only way to do extra customization on the appearance of the picker itself. This may be deprecated in the future.
+> It's recommended to use the ColorPickerField directly as described above. The old method remains functional for the time being but mostly as a way to keep existing modules working. This is also currently the only way to do extra customization on the appearance of the picker itself. This may be deprecated in the future.
 
 ## Register a Module Setting
 As with FoundryVTT's [ClientSettings.register](https://foundryvtt.com/api/ClientSettings.html#register) function, use the `ColorPicker.register(module, key, {settingOptions}, {pickerOptions})` function to register a new color picker setting for a module. `module` is the ID of the module, `key` is the name of the setting, `{settingOptions}` is a comma-separated list of options related to the `ClientSettings.register` function (see Setting Options) and `{pickerOptions}` is a comma-separated list of options for the picker (see Picker Options).
@@ -114,7 +113,7 @@ The DOM element that will be used to edit and display the alpha value (opacity).
 ### **backgroundColor**
 The background color of the color picker (in CSS color notation). Default is `'rgba(255, 255, 255, 1)'`.
 
-Example: `backgroundColor: 'rgba(218, 216, 204, 1`
+Example: `backgroundColor: 'rgba(218, 216, 204, 1)`
 
 ### **borderColor**
 The border color of the color picker (in CSS color notation). Default is `'rgba(187, 187, 187 ,1)'`.
