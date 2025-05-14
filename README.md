@@ -11,6 +11,23 @@ This module uses a modified version of the [jscolor](https://github.com/EastDesi
 For info about **jscolor** Color Picker, see the [jscolor website](https://jscolor.com).
 
 # How to Use
+## Registering a Setting
+To create a setting that works as a color picker, you just need to set the type on the setting to be `new game.colorPicker!.ColorPickerField()`. Example:
+```
+game.settings.register("your-module", "your-setting-key", {
+    name: "Your Cool Color",
+    hint: "This color is used for cool stuff",
+    scope: "client",
+    config: true,
+    type: new game.colorPicker.ColorPickerField(),
+});
+```
+You can optionally provide the [format](#format) you wish to use like so (the default is "hexa"):
+```type: new game.colorPicker.ColorPickerField({ format: "hex" })```
+
+# The Old Way
+> [!CAUTION]
+> It's highly recommended to use the ColorPickerField directly as described above. The old method remains functional for the time being but mostly as a way to keep existing modules working. This may be deprecated in the future.
 ## Register a Module Setting
 As with FoundryVTT's [ClientSettings.register](https://foundryvtt.com/api/ClientSettings.html#register) function, use the `ColorPicker.register(module, key, {settingOptions}, {pickerOptions})` function to register a new color picker setting for a module. `module` is the ID of the module, `key` is the name of the setting, `{settingOptions}` is a comma-separated list of options related to the `ClientSettings.register` function (see Setting Options) and `{pickerOptions}` is a comma-separated list of options for the picker (see Picker Options).
 
@@ -144,6 +161,7 @@ Whether to overwrite the CSS style of the previewElement using the !important fl
 
 Example: `forceStyle: false`
 
+<a name="format"></a>
 ### **format**
 The format of the displayed color value.
 - **'auto':** Base the format on the initial color value.
