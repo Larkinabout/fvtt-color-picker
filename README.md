@@ -24,7 +24,7 @@ game.settings.register("your-module", "your-setting-key", {
     type: new game.colorPicker.ColorPickerField(),
 });
 ```
-You can optionally provide the [picker options](#Picker Options) you wish to use like so:
+You can optionally provide the [picker options](#Picker-Options) you wish to use like so:
 
 ```type: new game.colorPicker.ColorPickerField({ format: "hex", height: 200 })```
 
@@ -306,7 +306,7 @@ Example: `zIndex: 1`
 > It's recommended to use the ColorPickerField directly as described above. The old method remains functional for the time being but mostly as a way to keep existing modules working. This may be deprecated in the future.
 
 ## Register a Module Setting
-As with FoundryVTT's [ClientSettings.register](https://foundryvtt.com/api/ClientSettings.html#register) function, use the `ColorPicker.register(module, key, {settingOptions}, {pickerOptions})` function to register a new color picker setting for a module. `module` is the ID of the module, `key` is the name of the setting, `{settingOptions}` is a comma-separated list of options related to the `ClientSettings.register` function (see [Setting Options](#Setting Options)) and `{pickerOptions}` is a comma-separated list of options for the picker (see [Picker Options](#Picker Options)).
+As with FoundryVTT's [ClientSettings.register](https://foundryvtt.com/api/ClientSettings.html#register) function, use the `ColorPicker.register(module, key, {settingOptions}, {pickerOptions})` function to register a new color picker setting for a module. `module` is the ID of the module, `key` is the name of the setting, `{settingOptions}` is a comma-separated list of options related to the `ClientSettings.register` function (see [Setting Options](#Setting-Options)) and `{pickerOptions}` is a comma-separated list of options for the picker (see [Picker Options](#Picker-Options)).
 
 ## Setting Options
 ### **name**
