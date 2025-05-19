@@ -8,7 +8,7 @@ export class ColorPickerField extends foundry.data.fields.StringField {
 
   constructor(options={}, context={}) {
     super(options, context);
-    this.format = options?.format ?? "hexa";
+    this.pickerOptions = options ?? {};
   }
 
   /** @inheritdoc */
@@ -24,13 +24,13 @@ export class ColorPickerField extends foundry.data.fields.StringField {
   /** @inheritdoc */
   _validateType(value, options) {
     let valid = true;
-    switch(this.format) {
+    switch(this.pickerOptions.format) {
       case "hex": valid = /^#[0-9A-Fa-f]{6}$/.test(value); break;
       case "hexa": valid = /^#[0-9A-Fa-f]{8}$/.test(value); break;
       case "rgb": valid = /rgb\(\s*(?:(\d{1,3})\s*,?){3}\)/i.test(value); break;
       case "rgba": valid = /rgba\(\s*(?:(\d{1,3})\s*,?){4}\)/i.test(value); break;
     }
-    if (!valid) throw new Error(`must be a valid ${this.format} color string`);
+    if (!valid) throw new Error(`must be a valid ${this.pickerOptions.format} color string`);
     return super._validateType(value, options);
   }
 
@@ -52,7 +52,8 @@ export class ColorPickerField extends foundry.data.fields.StringField {
     if ((config.placeholder === undefined) && !this.nullable && !(this.initial instanceof Function)) {
       config.placeholder = this.initial;
     }
-    config.format ??= this.format;
-    return HTMLAlphaColorPickerElement.create(config);
+    //config.format ??= this.pickerOptions.format;
+    let pickerOptions = {...this.pickerOptions, ...config};
+    return HTMLAlphaColorPickerElement.create(pickerOptions);
   }
 }

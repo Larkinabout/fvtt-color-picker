@@ -1,4 +1,4 @@
-import JsColor from './lib/jscolor.js'
+import JsColor from './lib/jscolor.js';
 
 /**
  * @typedef AbstractFormInputElement
@@ -13,10 +13,16 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
   /**
    * @param {HTMLColorPickerOptions} [options]
    */
-  constructor({ value, format }={}) {
+  constructor(pickerOptions) {
     super();
-    this._setValue(value || this.getAttribute("value")); // Initialize existing color value
-    this._format = format || this.getAttribute("format");
+    this.pickerOptions = pickerOptions;
+    if (!this.pickerOptions) {
+      this.pickerOptions = {};
+      for (const [key, value] of Object.entries(this.dataset)) {
+        this.pickerOptions[key] = value;
+      }
+    }
+    this._setValue(this.pickerOptions.value); // Initialize existing color value
   }
 
   /** @override */
@@ -46,7 +52,7 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
 
   /** @override */
   _refresh() {
-    if ( !this.#colorString ) return; // Not yet connected
+    if (!this.#colorString) return; // Not yet connected
     this.#colorString.value = this._value;
   }
 
@@ -54,11 +60,6 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
 
   /** @override */
   _activateListeners() {
-    this.pickerOptions = {
-      format: this._format ?? "hexa",
-      value: this._value
-    }
-
     //This both modifies the element and adds event handlers
     new JsColor(this.#colorString, this.pickerOptions);
 
@@ -95,8 +96,12 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
   static create(config) {
     const picker = new this(config);
     picker.name = config.name;
-    picker.setAttribute("value", config.value ?? "");
-    picker.setAttribute("format", config.format ?? "");
+    config.value ??= "";
+
+    for (const [key, value] of Object.entries(config)) {
+      picker.dataset[key] = value;
+    }
+
     foundry.applications.fields.setInputAttributes(picker, config);
     return picker;
   }
