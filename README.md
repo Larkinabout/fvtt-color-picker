@@ -24,73 +24,12 @@ game.settings.register("your-module", "your-setting-key", {
     type: new game.colorPicker.ColorPickerField(),
 });
 ```
-You can optionally provide the [format](#format) you wish to use like so (the default is "hexa"):
+You can optionally provide the [picker options](#Picker Options) you wish to use like so:
 
-```type: new game.colorPicker.ColorPickerField({ format: "hex" })```
+```type: new game.colorPicker.ColorPickerField({ format: "hex", height: 200 })```
 
 ## In a Handlebars Template
 To use the color picker in any hbs template file (the most common use case being a settings menu), provide the type through the data context with `new game.colorPicker.ColorPickerField()` as above. Then just use either the formInput or formGroup helper. You can learn more about those helpers on the [community wiki](https://foundryvtt.wiki/en/development/api/helpers).
-
-# The Old Way
-> [!CAUTION]
-> It's recommended to use the ColorPickerField directly as described above. The old method remains functional for the time being but mostly as a way to keep existing modules working. This is also currently the only way to do extra customization on the appearance of the picker itself. This may be deprecated in the future.
-
-## Register a Module Setting
-As with FoundryVTT's [ClientSettings.register](https://foundryvtt.com/api/ClientSettings.html#register) function, use the `ColorPicker.register(module, key, {settingOptions}, {pickerOptions})` function to register a new color picker setting for a module. `module` is the ID of the module, `key` is the name of the setting, `{settingOptions}` is a comma-separated list of options related to the `ClientSettings.register` function (see Setting Options) and `{pickerOptions}` is a comma-separated list of options for the picker (see Picker Options).
-
-## Setting Options
-### **name**
-The name of the setting for end users.
-
-Example: `name: 'Background Color'`
-
-### **hint**
-The description of the registered setting and its behavior.
-
-Example: `hint: 'Set the background color'`
-
-### **default**
-The default color value, e.g., `'#FF0000FF'` for opaque red. If unset, the default is `'#FFFFFFFF'`.
-
-Example: `default: '#FF0000FF'`
-
-### **scope**
-The scope of the setting: 
-- **'client':** The setting affects only the client.
-- **'world':** The setting affects all clients.
-
-Example: `scope: 'world'`
-
-### **config**
-Whether to display the setting in the configuration view. If set to `false`, the color picker will not be available. Default is `true`.
-
-Example: `config: false`
-
-## Module Setting Examples
-````
-ColorPicker.register(
-  'my-module',
-  'background-color', 
-  {
-    name: 'Background Color',
-    hint: 'Set the background color'
-    scope: 'world',
-    config: true
-  },
-  {
-    format: 'hexa',
-    alphaChannel: true
-  }
-)
-````
-## Add an Input
-1. Add the following html to your template file: 
-   ````
-   <input type="text" data-color-picker="{pickerOptions}" value="">
-   ````
-   - *`pickerOptions` is a list of comma-separated options in the format: `option: value`. See "Picker Options" for a list of options*
-   - *`type` does not need to be defined, but Foundry VTT will automatically format the element if it is included.*
-2. Add `ColorPicker.install()` to your script after the template is rendered.
 
 # Picker Options
 ### **alpha**
@@ -360,3 +299,65 @@ Example: `width: 200`
 The z-index of the color picker box. Default is `5000`.
 
 Example: `zIndex: 1`
+
+
+# The Old Way
+> [!CAUTION]
+> It's recommended to use the ColorPickerField directly as described above. The old method remains functional for the time being but mostly as a way to keep existing modules working. This may be deprecated in the future.
+
+## Register a Module Setting
+As with FoundryVTT's [ClientSettings.register](https://foundryvtt.com/api/ClientSettings.html#register) function, use the `ColorPicker.register(module, key, {settingOptions}, {pickerOptions})` function to register a new color picker setting for a module. `module` is the ID of the module, `key` is the name of the setting, `{settingOptions}` is a comma-separated list of options related to the `ClientSettings.register` function (see [Setting Options](#Setting Options)) and `{pickerOptions}` is a comma-separated list of options for the picker (see [Picker Options](#Picker Options)).
+
+## Setting Options
+### **name**
+The name of the setting for end users.
+
+Example: `name: 'Background Color'`
+
+### **hint**
+The description of the registered setting and its behavior.
+
+Example: `hint: 'Set the background color'`
+
+### **default**
+The default color value, e.g., `'#FF0000FF'` for opaque red. If unset, the default is `'#FFFFFFFF'`.
+
+Example: `default: '#FF0000FF'`
+
+### **scope**
+The scope of the setting:
+- **'client':** The setting affects only the client.
+- **'world':** The setting affects all clients.
+
+Example: `scope: 'world'`
+
+### **config**
+Whether to display the setting in the configuration view. If set to `false`, the color picker will not be available. Default is `true`.
+
+Example: `config: false`
+
+## Module Setting Examples
+````
+ColorPicker.register(
+  'my-module',
+  'background-color',
+  {
+    name: 'Background Color',
+    hint: 'Set the background color'
+    scope: 'world',
+    config: true
+  },
+  {
+    format: 'hexa',
+    alphaChannel: true
+  }
+)
+````
+## Add an Input
+1. Add the following html to your template file:
+   ````
+   <input type="text" data-color-picker="{pickerOptions}" value="">
+   ````
+   - *`pickerOptions` is a list of comma-separated options in the format: `option: value`. See "Picker Options" for a list of options*
+   - *`type` does not need to be defined, but Foundry VTT will automatically format the element if it is included.*
+2. Add `ColorPicker.install()` to your script after the template is rendered.
