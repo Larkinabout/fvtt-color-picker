@@ -52,8 +52,12 @@ export class ColorPickerField extends foundry.data.fields.StringField {
     if ((config.placeholder === undefined) && !this.nullable && !(this.initial instanceof Function)) {
       config.placeholder = this.initial;
     }
-    //config.format ??= this.pickerOptions.format;
-    let pickerOptions = {...this.pickerOptions, ...config};
-    return HTMLAlphaColorPickerElement.create(pickerOptions);
+
+    const pickerOptions = structuredClone(this.pickerOptions);
+
+    const value = config.value ?? pickerOptions.value ?? "";
+    pickerOptions.value = config.value = value;
+
+    return HTMLAlphaColorPickerElement.create(config, pickerOptions);
   }
 }

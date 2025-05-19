@@ -93,12 +93,11 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
    * @param {FormInputConfig} config
    * @returns {HTMLAlphaColorPickerElement}
    */
-  static create(config) {
+  static create(config, pickerOptions) {
     const picker = new this(config);
     picker.name = config.name;
-    config.value ??= "";
 
-    for (const [key, value] of Object.entries(config)) {
+    for (const [key, value] of Object.entries(pickerOptions)) {
       picker.dataset[key] = value;
     }
 
