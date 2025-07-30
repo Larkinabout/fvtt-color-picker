@@ -31,6 +31,19 @@ You can optionally provide the [picker options](#Picker-Options) you wish to use
 ## In a Handlebars Template
 To use the color picker in any hbs template file (the most common use case being a settings menu), provide the type through the data context with `new game.colorPicker.ColorPickerField()` as above. Then just use either the formInput or formGroup helper. You can learn more about those helpers on the [community wiki](https://foundryvtt.wiki/en/development/api/helpers).
 
+Picker options are passed in a string format similar to inline CSS: `pickerOptions="required: false; alphaChannel: true; format: 'hexa';"` 
+
+Example:
+
+In `_prepareContext()` of ApplicationV2 class:
+```
+return { colorPickerField: new game.colorPicker.ColorPickerField() };
+```
+In Handlebars template:
+```
+{{formInput colorPickerField value=innerColor name="innerColor" id="innerColor" pickerOptions="required: false; alphaChannel: true; format: 'hexa';"}}
+```
+
 # Picker Options
 ### **alpha**
 The initial alpha (opacity) value.
