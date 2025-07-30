@@ -19,7 +19,13 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
     if (!this.pickerOptions) {
       this.pickerOptions = {};
       for (const [key, value] of Object.entries(this.dataset)) {
-        this.pickerOptions[key] = value;
+        let parsedValue = value;
+        if (value === "true" || value === "false") {
+          parsedValue = value === "true";
+        } else if (value && !isNaN(value)) {
+          parsedValue = parseFloat(value);
+        }
+        this.pickerOptions[key] = parsedValue;
       }
     }
     this._setValue(this.pickerOptions.value); // Initialize existing color value
@@ -94,7 +100,7 @@ export class HTMLAlphaColorPickerElement extends foundry.applications.elements.A
    * @returns {HTMLAlphaColorPickerElement}
    */
   static create(config, pickerOptions) {
-    const picker = new this(config);
+    const picker = new this(pickerOptions);
     picker.name = config.name;
 
     for (const [key, value] of Object.entries(pickerOptions)) {

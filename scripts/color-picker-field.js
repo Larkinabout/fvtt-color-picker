@@ -11,6 +11,8 @@ export class ColorPickerField extends foundry.data.fields.StringField {
     this.pickerOptions = options ?? {};
   }
 
+  /* -------------------------------------------- */
+
   /** @inheritdoc */
   static get _defaults() {
     return foundry.utils.mergeObject(super._defaults, {
@@ -20,6 +22,8 @@ export class ColorPickerField extends foundry.data.fields.StringField {
       validationError: "is not a valid color string"
     });
   }
+
+  /* -------------------------------------------- */
 
   /** @inheritdoc */
   _validateType(value, options) {
@@ -33,6 +37,8 @@ export class ColorPickerField extends foundry.data.fields.StringField {
     if (!valid) throw new Error(`must be a valid ${this.pickerOptions.format} color string`);
     return super._validateType(value, options);
   }
+
+  /* -------------------------------------------- */
 
   createPickerInput(config) {
     const input = document.createElement("input");
@@ -53,11 +59,57 @@ export class ColorPickerField extends foundry.data.fields.StringField {
       config.placeholder = this.initial;
     }
 
+    if ( config.pickerOptions ) {
+      const configPickerOptions = this._convertStringToObject(config.pickerOptions);
+      this.pickerOptions = foundry.utils.mergeObject(this.pickerOptions, configPickerOptions);
+    }
+
     const pickerOptions = structuredClone(this.pickerOptions);
 
     const value = config.value ?? pickerOptions.value ?? "";
     pickerOptions.value = config.value = value;
 
     return HTMLAlphaColorPickerElement.create(config, pickerOptions);
+  }
+
+  /* -------------------------------------------- */
+  /* Functions                                    */
+  /* -------------------------------------------- */
+
+  _convertStringToObject(str) {
+    let obj = {};
+
+    str = str.trim().replace(/;$/, '');
+
+    str.split(';').forEach(pair => {
+        try {
+            let [key, value] = pair.trim().split(':').map(item => item.trim());
+
+            // Skip empty pairs or malformed ones
+            if (!key || !value) {
+                throw new Error(`Invalid pair: '${pair}'`);
+            }
+
+            // Check if the value is a boolean
+            if (value === 'true' || value === 'false') {
+                obj[key] = value === 'true';
+            }
+            // Check if the value is a number (i.e., can be parsed as a float)
+            else if (!isNaN(value)) {
+                obj[key] = parseFloat(value);
+            }
+            // Check if the value is a string (wrapped in single quotes)
+            else if (value.startsWith("'") && value.endsWith("'")) {
+                obj[key] = value.slice(1, -1); // Remove single quotes
+            } else {
+                // Default to treating the value as a string if no other condition matches
+                obj[key] = value;
+            }
+        } catch (error) {
+            console.error("Error processing pair:", error.message);
+        }
+    });
+
+    return obj;
   }
 }
