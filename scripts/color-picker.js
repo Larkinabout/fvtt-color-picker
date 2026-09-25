@@ -7,9 +7,12 @@ Hooks.once('init', function () {
     register,
     install: JsColor.install
   }
-  window.customElements.define(HTMLAlphaColorPickerElement.tagName, HTMLAlphaColorPickerElement);
-  game.colorPicker = {};
-  game.colorPicker.ColorPickerField = ColorPickerField;
+
+  if (foundry.applications?.elements?.AbstractFormInputElement) {
+    window.customElements.define(HTMLAlphaColorPickerElement.tagName, HTMLAlphaColorPickerElement);
+    game.colorPicker = {};
+    game.colorPicker.ColorPickerField = ColorPickerField;
+  }
   Hooks.callAll('colorPickerReady', window.ColorPicker)
 })
 

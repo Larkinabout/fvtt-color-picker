@@ -6,10 +6,10 @@ import JsColor from './lib/jscolor.js';
  */
 
 /**
- * A custom HTMLElement used to select a color and alpha
+ * A custom HTMLElement used to select a color and alpha.
  * @extends {AbstractFormInputElement<string>}
  */
-export class HTMLAlphaColorPickerElement extends foundry.applications.elements.AbstractFormInputElement {
+export class HTMLAlphaColorPickerElement extends (foundry.applications?.elements?.AbstractFormInputElement ?? HTMLElement) {
   /**
    * @param {HTMLColorPickerOptions} [options]
    */
